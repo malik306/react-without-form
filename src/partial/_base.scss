@@ -1,0 +1,38 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+body,
+html {
+  font-family: "Poppins", sans-serif;
+}
+$opacity: 0;
+:root {
+  @while $opacity<=100 {
+    --opacity-#{$opacity}: calc(#{$opacity}/ 100);
+    $opacity: $opacity + 5;
+  }
+}
+@function set-col($size) {
+  @return calc(100% / calc(12 / $size));
+}
+@mixin media-screen($media) {
+  @media (max-width: #{$media - 0.02}px) {
+    @content;
+  }
+}
+@mixin max-width($max) {
+  @if ($max!=null) {
+    max-width: #{$max}px;
+  }
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+}
