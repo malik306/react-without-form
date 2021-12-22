@@ -1,0 +1,92 @@
+.header {
+  background: rgba(255, 255, 255, var(--opacity-100));
+  height: auto;
+  padding: 1em 0;
+  &__case {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    &__logo {
+      padding-left: 2em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &__search-bar {
+      display: none;
+      i {
+        color: rgba(0, 0, 0, var(--opacity-50));
+        cursor: pointer;
+      }
+      @include media-screen(1000) {
+        display: flex !important;
+        padding-right: 2em;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2em;
+      }
+    }
+    &__nav {
+      transition: 1s ease-in-out;
+      &__items {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        &__item {
+          &__link {
+            color: rgba(0, 0, 0, var(--opacity-50));
+            padding: 0.2em 0.4em;
+            border-radius: 0.2em;
+            transition: ease-in-out 1s;
+            display: flex;
+            align-items: center;
+            font-size: 1em;
+            gap: 0.6em;
+            text-transform: uppercase;
+            &:hover {
+              background: rgba(0, 0, 0, var(--opacity-5));
+            }
+          }
+          &:last-child &__link {
+            text-transform: capitalize;
+            &:hover {
+              background: none;
+            }
+          }
+        }
+      }
+      @include media-screen(1000) {
+        position: absolute;
+        background: rgba(0, 0, 0, var(--opacity-80));
+        width: 100%;
+        top: 55px;
+        height: 0;
+        pointer-events: none;
+        opacity: 0;
+        ul {
+          padding: 0.5em 0;
+          flex-direction: column;
+          gap: unset;
+          li {
+            width: 100%;
+            &:not(:last-child) {
+              border-bottom: 1px solid rgba(255, 255, 255, var(--opacity-60));
+            }
+            a {
+              color: white;
+              padding: 0.8em 0;
+              padding-left: 2em;
+            }
+          }
+        }
+        &--toggle {
+          pointer-events: all;
+          height: 325px;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

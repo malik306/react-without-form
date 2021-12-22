@@ -1,0 +1,21 @@
+.layout {
+  &__header {
+    text-align: center;
+    color: white !important;
+    font-size: 1.6em;
+  }
+  &__footer {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.2em;
+  }
+  &__content {
+    // &__row {
+    //   &__col{
+    //       &:first-child{
+              
+    //       }
+    //   }
+    // }
+  }
+}
