@@ -1,29 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Form, Input, Radio, Select, Button, DatePicker, Modal } from "antd";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Form, Input, Radio, Select, Button, DatePicker } from "antd";
 const { Option } = Select;
 function Contact() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [data, setData] = useState({});
-  const [welcome,setWelcome] = useState(null);
-  const [success,setSuccess] = useState(null);
-  const [bye,setBye] = useState(null);
-  useEffect(() => {
-    console.log('mounting and updating');
-    setWelcome("Welcome to the Form Page");
-    setSuccess("Form is submitted");
-    return () => {
-      console.log('unmounting');
-    };
-  },[bye]);
-  const onFinish = (fieldsValue) => {
-    const values = {
-      ...fieldsValue,
-      startDate: fieldsValue["startDate"].format("DD-MM-YYYY"),
-      endDate: fieldsValue["endDate"].format("DD-MM-YYYY"),
-    };
-    setData(values);
-    setIsModalVisible(true);
-  };
+  //selecting the reducer function for specific type action
+  const dispatch = useDispatch();
   //Date Configuration required string
   const configStartDate = {
     rules: [
@@ -43,26 +24,14 @@ function Contact() {
       },
     ],
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
   const children = [];
   for (let i = 10; i < 36; i++) {
     children.push(
       <Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>
     );
   }
-  const handleOk = () => {
-    setIsModalVisible(false);
-    setBye("You have checked the Modal, Please close the Modal");
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
   return (
     <>
-    <p style={{paddingTop:"1em",textAlign:"center"}}>{welcome}</p>
       <Form
         style={{ padding: "0.5em" }}
         name="basic"
@@ -72,8 +41,8 @@ function Contact() {
         wrapperCol={{
           span: 12,
         }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        onFinish={(e) => dispatch({ type: "Finish", data: e })}
+        onFinishFailed={(e) => dispatch({ type: "Fail", data: e })}
         autoComplete="off"
       >
         <Form.Item
@@ -196,25 +165,6 @@ function Contact() {
           </Button>
         </Form.Item>
       </Form>
-      <p>{bye}</p>
-      <Modal
-        title="Basic Modal"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p style={{paddingBottom:"0.5em"}}>{success}</p>
-        <p>{data.username}</p>
-        <p>{data.mail}</p>
-        <p>{data.pass}</p>
-        <p>{data.msg}</p>
-        <p>
-          {data.startDate} , {data.endDate}
-        </p>
-        <p>{data.gender}</p>
-        <p>{data.currency}</p>
-        <p>{data.mSelect}</p>
-      </Modal>
     </>
   );
 }
